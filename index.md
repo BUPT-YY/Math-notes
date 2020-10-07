@@ -5,4 +5,4 @@
 > [My notes on Measure Theory](./test.pdf)
 
 ## SPARCs
-> [My notes on Sparse regression codes](./test.pdf)
+> [My notes on Sparse regression codes](./SPARC-notes/main.pdf)
