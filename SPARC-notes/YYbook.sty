@@ -1,0 +1,193 @@
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{YYbook}[2020/02/11]
+\RequirePackage[a4paper,margin=2.5cm,bottom=1.5cm]{geometry}
+\RequirePackage{fancyhdr,fancybox}
+\RequirePackage{ifthen}
+\RequirePackage{lastpage}
+\RequirePackage{paralist}
+\RequirePackage{indentfirst}
+\RequirePackage[toc,page,title,titletoc,header]{appendix}
+\setcounter{tocdepth}{3}
+\RequirePackage{lipsum}
+\RequirePackage{mathtools} 
+\RequirePackage{wasysym}
+\RequirePackage{pdfpages}
+\RequirePackage{graphicx}
+\RequirePackage{subfigure}
+\RequirePackage{physics,amsfonts,bm,amsthm,amscd}
+\RequirePackage{tensor}
+\RequirePackage{charter}
+\RequirePackage{palatino}
+\RequirePackage{mathrsfs}
+\RequirePackage{amsmath,amssymb}
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Definition}[Theorem]{Definition}
+\newtheorem{Example}[Theorem]{Example}
+\RequirePackage{titlesec,titletoc}
+\setcounter{tocdepth}{3}
+\RequirePackage[font=small]{caption}
+\renewcommand\abstractname{Summary}
+\RequirePackage{longtable,multirow,array}
+\RequirePackage{booktabs}
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{url}
+\def\UrlBreaks{\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J
+\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V
+\do\W\do\X\do\Y\do\Z\do\[\do\\\do\]\do\^\do\_\do\`\do\a\do\b
+\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n
+\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z
+\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]\do\)\do\,
+\do\?\do\'\do+\do\=\do\#}
+\setlength{\headheight}{15pt}
+\newcommand{\MCM@control}{0000000}
+\DeclareOption*{\edef\MCM@control{\CurrentOption}}
+\ProcessOptions
+\newcommand{\control}{\MCM@control}
+\newcommand{\team}{\MCM@control}
+\newcommand{\contest}{MCM/ICM}
+
+\RequirePackage{graphicx}
+\RequirePackage{flafter}
+\RequirePackage{ifpdf}
+\ifpdf
+\RequirePackage{epstopdf}
+\DeclareGraphicsExtensions{.pdf,.jpg,.jpeg,.png}
+\RequirePackage[
+    linkcolor=black,  % 消除链接色彩
+    citecolor=black,
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black]{hyperref}
+\else\DeclareGraphicsExtensions{.eps,.ps}
+\ifxetex\RequirePackage[
+    xetex,  % 运行 xetex
+    pdfstartview=FitH,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black]{hyperref}
+\else\RequirePackage[
+    dvipdfm,  % 运行其他编译引擎（如 luatex）
+    pdfstartview=FitH,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black]{hyperref}
+\fi\fi
+\RequirePackage{algorithm} 
+\RequirePackage{algpseudocode}
+\RequirePackage{algorithmicx}
+\floatname{algorithm}{Algorithm}  
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+\RequirePackage{listings,xcolor}  
+\definecolor{grey}{rgb}{0.8,0.8,0.8}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\def\lstbasicfont{\fontfamily{pcr}\selectfont\footnotesize}
+\lstset{
+    showstringspaces=false,
+    showspaces=false,%
+    tabsize=4,%
+    frame=lines,%
+    basicstyle={\footnotesize\lstbasicfont},%
+    keywordstyle=\color{darkblue}\bfseries,%
+    identifierstyle=,%
+    commentstyle=\color{darkgreen},%\itshape,%
+    stringstyle=\color{black}%
+}
+\lstloadlanguages{C,C++,Java,Matlab,Mathematica,Python}
+\lstnewenvironment{mat}
+{\lstset{language=mathematica,mathescape,columns=flexible,frame=lines}}
+{}
+\setcounter{totalnumber}{6}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.60}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\setlength{\belowcaptionskip}{4pt}
+\setlength{\abovecaptionskip}{4pt}
+\graphicspath{{./}{./img/}{./fig/}{./image/}{./figure/}{./picture/}}
+\lhead{\small \team}
+\chead{}
+\rhead{\small Page \thepage\ of \pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\newcounter{prefix}
+\renewcommand{\theHsection}{\theprefix.\thesection}
+\newenvironment{letter}[1]{\refstepcounter{section}\addtocounter{section}{-1}\section*{#1}\addcontentsline{toc}{section}{#1}}{\stepcounter{prefix}}
+\RequirePackage{etoolbox}
+\AtBeginEnvironment{abstract}{\setlength\parskip{1ex}}
+\AtBeginEnvironment{thebibliography}{
+    \refstepcounter{section}
+    \addcontentsline{toc}{section}{References}}
+\BeforeBeginEnvironment{subappendices}{
+    \clearpage
+    \setcounter{secnumdepth}{-1}}
+\BeforeBeginEnvironment{letter}{\clearpage}
+
+
+\newcommand{\@problem}[1]{}
+\newcommand{\problem}[1]{\gdef\@problem{#1}}
+\newcommand{\makesheet}{ 
+    \null%
+    \vspace*{-16ex}%
+	\centerline{\begin{tabular}{*3{c}}
+		\parbox[t]{0.3\linewidth}{\begin{center}\textbf{Problem Chosen}\\ \Large \textcolor{red}{\@problem}\end{center}}
+		& \parbox[t]{0.3\linewidth}{\begin{center}\textbf{2020\\ \contest\\ Summary Sheet}\end{center}}
+		& \parbox[t]{0.3\linewidth}{\begin{center}\textbf{Team Control Number}\\ \Large \textcolor{red}{\MCM@control}\end{center}}	\\
+		\hline
+	\end{tabular}}
+	\vskip 30pt
+}
+
+\newbox\@abstract
+\setbox\@abstract\hbox{}
+\long\def\abstract{\bgroup\global\setbox\@abstract\vbox\bgroup\hsize\textwidth}
+\def\endabstract{\egroup\egroup}
+\def\make@abstract{
+    \vskip -10pt\par
+    {\centering\Large\bfseries\@title\vskip1ex}\par 
+    {\centering\bfseries\abstractname\vskip1.5ex}\par 
+    \noindent\usebox\@abstract\par
+    \vskip 10pt}
+
+
+\def\@maketitle{
+	\makesheet%
+	\make@abstract
+    \pagenumbering{gobble}
+    \pagestyle{empty}
+    \newpage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}}
+
+\renewcommand\tableofcontents{%
+    \centerline{\normalfont\Large\bfseries\contentsname%
+    \@mkboth{%
+    \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+    \vskip 3ex%
+    \@starttoc{toc}%
+    \thispagestyle{empty}
+    \clearpage
+    \pagestyle{fancy}
+    \setlength\parskip{1ex}}
+\linespread{0.8}
+\usepackage{ctex}
+\CTEXoptions[today=old]
+
+\endinput

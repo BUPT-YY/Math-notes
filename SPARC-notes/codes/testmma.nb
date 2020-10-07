@@ -1,0 +1,188 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6780,        180]
+NotebookOptionsPosition[      6342,        163]
+NotebookOutlinePosition[      6699,        179]
+CellTagsIndexPosition[      6656,        176]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"deaths", "=", 
+   RowBox[{"ExampleData", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<Statistics\>\"", ",", "\"\<USAccidentalDeaths\>\""}], 
+      "}"}], ",", "\"\<EventSeries\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DateListPlot", "[", "deaths", "]"}]}], "Input",
+ CellChangeTimes->{{3.7907203108562803`*^9, 3.790720461543014*^9}, {
+  3.7907224182201123`*^9, 
+  3.7907224272719173`*^9}},ExpressionUUID->"a6b5a1e1-7ed4-4b72-a859-\
+da149b1e9480"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{{}, {}, 
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.011000000000000001`], AbsoluteThickness[1.6], LineBox[CompressedData["
+1:eJxNk29IE2Ecx4/EKApaVEK+0Akritic/QGRRtegVmEwAxc0hMPYQCXuQAkX
+IVdGWCCtIfjGaPWiF0a0N2mY6bWWoFEsDfSFxrWCIJQuKDHsRXu+z3fQYNx9
++P6e3+9zz3NX06qfi21QFOVU8S+uxZ/zyff5uLgxB1+pxYv/6iHJyvCkYGN3
+PdlArh4JsH4BbO8NkpOvBWeCIdbveSM4fLiReeWUYHe4ifnfnGCnI8J8LSs4
+2RJl3oZ+WkJj/hXzlI4YWQfnb7az/uSE4PRDnXziBfyOdZHjeJ5MNEHutOB3
+todcjn7utl7yAHysC33kHHySl/s5v1b6pVLkHdLvxiD5o/S7P8T1ZWDj7gPy
+L8xXnzwiF+Dnmn5Mvj0Ov3iGPI7cff0ZeQLPa3WOcV6z3L87k6XzA/uv5ZiP
+wFe5N818Bnn++XvmPvgYw3PMb0m/qQWyjfn26BK5Ve7nXKF03vAxf3wr8UvB
+zsgy+bz0nf1J/g3WcqucP495fnud3C3374NSkPVP4Z9eKZdsrsj93LyFeUzu
+3/o28gD62RW7yFnpt6mS67/I8/dUMzeQu1UP2Yv3R1vaR/Yh9//xFv7/PvLf
+D5Jb4JPeWM/++7G/6tpRsoX33bUzyPoDyO3aEDkAH7OmkXwa/cKBJq73IHd8
+kZIPcutMlDwEv2RcIy+Pwa8sRtbl91HdTlbk+W7X2f8d+rm8XcwvwS9TlSBf
+gb/Z0MP6OpxHONLL/C3WO6E+8qj0u9jP+kXM05pTzLdm1X+ULDCw
+       "]]}}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.011000000000000001`],
+      AbsoluteThickness[1.6]}, {
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.011000000000000001`], AbsoluteThickness[1.6]}, {}}, {
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.011000000000000001`], AbsoluteThickness[1.6]}, {}}}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{False, False},
+  AxesLabel->{None, None},
+  AxesOrigin->{2.3062752*^9, 6646.166666666666},
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->FrontEndValueCache[{{Automatic, Automatic}, {
+      Charting`DateTicksFunction[Automatic, DateTicksFormat -> {Automatic}], 
+      Charting`DateTicksFunction[
+      Automatic, DateTicksFormat -> {Automatic}, "TickLabels" -> None]}}, {{
+     Automatic, Automatic}, {{{2.3036832*^9, 
+        FormBox[
+         StyleBox["\"1973\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3352192*^9, 
+        FormBox[
+         StyleBox["\"1974\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3667552*^9, 
+        FormBox[
+         StyleBox["\"1975\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3982912*^9, 
+        FormBox[
+         StyleBox["\"1976\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4299136*^9, 
+        FormBox[
+         StyleBox["\"1977\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4614496*^9, 
+        FormBox[
+         StyleBox["\"1978\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4929856*^9, 
+        FormBox[
+         StyleBox["\"1979\"", 
+          Directive[], {}, StripOnInput -> False], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}}, {{2.3036832*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3352192*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3667552*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.3982912*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4299136*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4614496*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}, {2.4929856*^9, 
+        FormBox[
+         TemplateBox[{0., 0.}, "Spacer2"], TraditionalForm], {
+        0.013888888888888888`, 0.}, 
+        Directive[]}}}}],
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "NoShowPlotTheme" -> Automatic, "OptimizePlotMarkers" -> True, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{2.3062752*^9, 2.49264*^9}, {6646.166666666666, 11317.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{{}, Automatic}]], "Output",
+ CellChangeTimes->{{3.7907203377999096`*^9, 3.790720369864705*^9}, {
+  3.7907204021590633`*^9, 3.7907204623394823`*^9}},
+ CellLabel->"Out[35]=",ExpressionUUID->"8ba74ae2-6cc2-4c0e-a0d8-f4b1f0b0a003"]
+}, Open  ]]
+},
+WindowSize->{759, 697},
+WindowMargins->{{276, Automatic}, {13, Automatic}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (2019\:5e745\:670818\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 513, 13, 82, "Input",ExpressionUUID->"a6b5a1e1-7ed4-4b72-a859-da149b1e9480"],
+Cell[1096, 37, 5230, 123, 234, "Output",ExpressionUUID->"8ba74ae2-6cc2-4c0e-a0d8-f4b1f0b0a003"]
+}, Open  ]]
+}
+]
+*)
+

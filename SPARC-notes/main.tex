@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+
+\usepackage[YongYANG]{YYbook}
+
+
+% 文档开始
+\begin{document}
+
+\begin{titlepage}\Large
+	\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+	\begin{center}
+		\vspace*{3cm}
+		{\Huge\color{blue} Notes on SPARCs} \bigskip
+		
+		{\LARGE Yong YANG\footnote{{\large \url{YangYong@bupt.edu.cn}}}} \medskip
+		
+		\today
+		
+	\end{center}
+\end{titlepage}
+
+%\clearpage{\pagestyle{empty}\cleardoublepage}
+\clearpage
+\tableofcontents  % 生成目录
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+	%正文开始
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{一些数学上的准备}
+	\begin{Lemma}
+	    Let $u\in\mathbb{R}^N$ and $v\in\mathbb{R}^n$ be deterministic vectors such that $\lim_{n\to\infty}\norm{u}^2/n$ and $\lim_{n\to\infty}\norm{v}^2/n$ both exist and are finite. Let $\tilde{A}\in\mathbb{R}^{n\times N}$ be a matrix with independent $\mathcal{N}(0,1/n)$ entries. Then
+	    \begin{enumerate}[(a)]
+	        \item \begin{equation}
+	            \tilde{A}u\stackrel{d}{=} \frac{\norm{u}}{\sqrt{n}}Z_u~~~\text{and}~~~\tilde{A}^{\mathsf{T}}v\stackrel{d}{=} \frac{\norm{v}}{\sqrt{n}}Z_v
+	        \end{equation}
+	        where $Z_u\in\mathbb{R}^n$ and $Z_v\in\mathbb{R}^N$ are each i.i.d. standard Normal random vectors. Consequently,
+	        \begin{equation}
+	            \lim_{n\to\infty} \frac{\norm{\tilde{A}u}^2}{n}\stackrel{a.s.}{=} \lim_{n\to\infty} \frac{\norm{u}^2}{n}\sum_{j = 1}^n \frac{Z_{u,j}^2}{n}\stackrel{a.s.}{=} \lim_{n\to\infty} \frac{\norm{u}^2}{n}
+	        \end{equation}
+	        \begin{equation}
+	            \lim_{n\to\infty} \frac{\norm{\tilde{A}^{\mathsf{T}}v}^2}{n}\stackrel{a.s.}{=} \lim_{n\to\infty} \frac{\norm{v}^2}{n}\sum_{j = 1}^N \frac{Z_{v,j}^2}{n}\stackrel{a.s.}{=} \lim_{n\to\infty} \frac{\norm{v}^2}{n}
+	        \end{equation}
+	        \item Let $\mathcal{W}$ be a $d$-dimensional subspace of $\mathbb{R}^n$ for $d\leqslant n$. Let $(w_1,\cdots,w_d)$ be an orthogonal basis of $\mathcal{W}$ with $\norm{w_j}^2 = n$ for $j\in[d]$, and let $\mathsf{P}_{\mathcal{W}}$ denote the orthogonal projection operator onto $\mathcal{W}$. Then for $D = \left[ w_1~|~\cdots~|~w_d  \right]$, we have $\mathsf{P}_{\mathcal{W}} \tilde{A}u \stackrel{d}{=}\frac{\norm{u}}{\sqrt{n}}\mathsf{P}_{\mathcal{W}}Z_u\stackrel{d}{=}\frac{\norm{u}}{\sqrt{n}}Dx $ where $x\in\mathbb{R}^n$ is a random vector with i.i.d. $\mathcal{N}(0,1/n)$ entries. Therefore $\lim_{n\to\infty}n^{\delta}\norm{x} \stackrel{a.s.}{=} 0$ for any constant $\delta\in[0,0.5)$. (The limit is taken with $d$ 
+	       fixed.) 
+	    \end{enumerate}
+	\end{Lemma}
+	\begin{proof}
+	    \begin{enumerate}[(a)]
+	        \item 这个是SLLN.
+	    \end{enumerate}
+	\end{proof}
+	
+	\begin{Lemma}[Strong Law of Triangular Arrays]
+    	 假设$\{ X_{n,j}:j\in[n],n\geqslant 1 \}$是零均值、行内独立的三角$\mathrm{r.v.}$组列, 并且满足
+    	 \begin{equation}
+    	     \sum_{j=1}^n\mathrm{E} \abs{X_{n,j}}^{2+\kappa}\leqslant cn^{1+\kappa/2},~\exists\kappa\in(0,1),~c<+\infty.
+    	 \end{equation}
+    	 则\begin{equation}
+    	     \frac{1}{n}\sum_{j=1}^nX_{n,j} \xrightarrow{\text{a.s.}} 0,~~\text{as}~n\to\infty.
+    	 \end{equation}
+	\end{Lemma}
+	\begin{proof}
+	    我们采用截尾方法来证明它. 令
+	    \begin{equation}
+	        \Bar{X}_{n,j} = X_{n,j}\bm{1}_{(\abs{X_{n,j}}\leqslant n)},~Y_{n,j} = \Bar{X}_{n,j} - \mathrm{E}\Bar{X}_{n,j},
+	    \end{equation}
+	    其中~$\bm{1}_{(\cdot)}$~是示性函数. 则
+	    $\{Y_{n,j}\}$行内独立, 并且$\mathrm{E}Y_{n,j} = 0$, $\abs{Y_{n,j}}\leqslant 2n.$
+	    利用$C_r$不等式和Jensen不等式可以证明\footnote{
+	        对任意的随机变量$X$, $\mathrm{E}\abs{X - \mathrm{E}X}^r \leqslant 2^{r-1}\left(\mathrm{E}\abs{X}^r+\abs{\mathrm{E}X}^r\right) \leqslant 2^r\mathrm{E}\abs{X}^r, r\geqslant 1.$
+	    }:
+	    \begin{equation*}
+	        \mathrm{E}\abs{Y_{n,j}}^{r} \leqslant 2^{r}\mathrm{E}\abs{\Bar{X}_{n,j}}^{r}\leqslant 2^{r}\mathrm{E}\abs{X_{n,j}}^{r}, r \geqslant 1.
+	    \end{equation*}
+	    由Markov不等式, \begin{align*}
+	        &\sum_{n = 1}^{+\infty}P\left( \abs{\frac{1}{n}\sum_{j = 1}^nY_{n,j}}\geqslant \varepsilon \right) \leqslant \sum_{n = 1}^{+\infty}\frac{1}{n^4\varepsilon^4}\mathrm{E}\left({\sum_{j = 1}^nY_{n,j}}\right)^4\\
+	        &=\sum_{n = 1}^{+\infty}\frac{1}{n^4\varepsilon^4}\left[\sum_{j=1}^n\mathrm{E}Y_{n,j}^4 + \left( \sum_{j=1}^n\mathrm{E}Y_{n,j}^2 \right)^2 \right]\\
+	        &\leqslant \sum_{n = 1}^{+\infty} \frac{1}{n^4\varepsilon^4}\left[(2n)^{2-\kappa}\sum_{j=1}^n\mathrm{E}\abs{Y_{n,j}}^{2+\kappa}+\left(4 \sum_{j=1}^n\mathrm{E}X_{n,j}^2 \right)^2 \right]\\
+	        &\leqslant \sum_{n = 1}^{+\infty} \frac{1}{n^4\varepsilon^4}\left[(2n)^{2-\kappa}2^{2+\kappa}\sum_{j=1}^n\mathrm{E}\abs{X_{n,j}}^{2+\kappa}+\left( 4\sum_{j=1}^n\mathrm{E}(1+\abs{X_{n,j}}^{2+\kappa}) \right)^2 \right]\\
+	        &\leqslant \sum_{n = 1}^{+\infty}\frac{16 }{n^4\varepsilon^4}\left[n^{2-\kappa}cn^{1+\kappa/2}+(n+cn^{1+\kappa/2})^2  \right]\\
+	        &<+\infty.
+	    \end{align*}
+	    所以$$
+	    \frac{1}{n}\sum_{j = 1}^nY_{n,j}\stackrel{\text{a.s.}}{\to} 0,~~(n\to\infty).
+	    $$
+	    另一方面, 利用概率的次可加性可以知道, \begin{align*}
+	        &\sum_{n = 1}^{+\infty} P\left( \abs{\frac{1}{n}\sum_{j = 1}^nX_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)}  }\geqslant\varepsilon \right) \leqslant \sum_{n = 1}^{+\infty} P\left( \frac{1}{n}\sum_{j = 1}^nX_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)}  \neq 0 \right)\\
+	        &\leqslant\sum_{n = 1}^{+\infty} P\left( \bigcup_{j=1}^n\{\abs{X_{n,j}}>n \} \right) \leqslant \sum_{n = 1}^{+\infty}\sum_{j = 1}^{n} P\left( \abs{X_{n,j}}>n \right)\\
+	        &\leqslant \sum_{n = 1}^{+\infty}\sum_{j = 1}^{n} \frac{\mathrm{E}\abs{X_{n,j}}^{2+\kappa}}{n^{2+\kappa}} \leqslant \sum_{n = 1}^{+\infty} \frac{cn^{1+\kappa/2}}{n^{2+\kappa}}\\
+	        &< +\infty.
+	    \end{align*}
+	    所以又有\begin{equation*}
+	        \frac{1}{n}\sum_{j = 1}^nX_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)}\stackrel{\text{a.s.}}{\to} 0,~~(n\to\infty).
+	    \end{equation*}
+	    最后, \begin{align*}
+	        \abs{\frac{1}{n}\sum_{j = 1}^{n} \mathrm{E}X_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)} } &\leqslant \frac{1}{n}\sum_{j = 1}^{n}\mathrm{E}\abs{X_{n,j}}\bm{1}_{(\abs{X_{n,j}}>n)}\\
+	        &\leqslant \frac{1}{n}\sum_{j = 1}^{n}\mathrm{E}\frac{\abs{X_{n,j}}^{2+\kappa} }{n^{1+\kappa}}\leqslant \frac{cn^{1+\kappa/2}}{n^{2+\kappa}}\to 0,~(n\to\infty).
+	    \end{align*}
+	    综上所述, \begin{equation*}
+	        \frac{1}{n}\sum_{j=1}^nX_{n,j} = \frac{1}{n}\sum_{j=1}^nY_{n,j} + \frac{1}{n}\sum_{j = 1}^nX_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)} - \frac{1}{n}\sum_{j = 1}^{n} \mathrm{E}X_{n,j}\bm{1}_{(\abs{X_{n,j}}>n)} \xrightarrow{\text{a.s.}} 0.
+	    \end{equation*}
+	\end{proof}
+	
+	\begin{Lemma}
+	    设$\{V,V_n;n\geqslant 2\}$是独立同分布的随机序列, 并且$\mathrm{E}V^2<+\infty$. 对任意的函数$\psi$, 如果$\psi:\mathbb{R}\to\mathbb{R}$满足二阶伪Lipschitz条件, 则
+	    \begin{equation}
+	        \lim_{n\to\infty}\frac{1}{n}\sum_{j = 1}^n\psi(V_j) \stackrel{a.s.}{=} \mathrm{E}\left[\psi(V) \right].
+	    \end{equation}
+	\end{Lemma}
+	\begin{proof}
+	    因为$\psi$满足二阶伪Lipschitz条件, 所以$$
+	        \mathrm{E} \abs{\psi(V)} \leqslant C\cdot\mathrm{E} (1+V^2) < +\infty.
+	    $$
+	
+	    注意到$\psi(V_1),\psi(V_2),\cdots$独立同分布, 由Kolmogorov强大数定律知结论成立.
+	\end{proof}
+	
+	
+	\begin{Lemma}[Stein]
+			设随机向量$(X, Y)$服从二元正态分布$\mathcal{N}(\mu_1,\mu_2;\sigma_1^2,\sigma_2^2;\rho)$. 假设函数$f:\mathbb{R}\to\mathbb{R}$绝对连续, 并且$\mathrm{Cov}(f(X),Y)$和$\mathrm{E}(f'(X))$均存在, 则
+	    \begin{equation}
+	    	\mathrm{Cov}(f(X),Y) = \mathrm{Cov}(X,Y) \mathrm{E}f'(X).
+	    \end{equation}
+	\end{Lemma}
+	\begin{proof}
+		记标准正态分布的概率密度函数为$\varphi(\cdot)$, 利用分部积分公式得到
+		\begin{align*}
+			\mathrm{E}f'(X) &= \int_{-\infty}^{\infty}f'(x)\frac{1}{\sigma_1}\varphi(\frac{x-\mu_1}{\sigma_1})\mathrm{d}x\\
+			&=\left[ f(x)\frac{1}{\sigma_1}\varphi(\frac{x-\mu_1}{\sigma_1}) \right]\bigg\vert_{-\infty}^{+\infty} - \int_{-\infty}^{+\infty}f(x) \left[\frac{1}{\sigma_1}\varphi(\frac{x-\mu_1}{\sigma_1})\right]'\mathrm{d}x\\
+			&= \frac{1}{\sigma_1^2}\int_{-\infty}^{+\infty}f(x)  (x-\mu_1)\frac{1}{\sigma_1}\varphi(\frac{x-\mu_1}{\sigma_1})\mathrm{d}x = \frac{1}{\sigma_1^2}\mathrm{E}\left[ (X-\mu_1)f(X) \right]
+		\end{align*}
+	  由于$Y - \dfrac{\rho\sigma_2}{\sigma_1} X$与$X$独立, 所以$Y - \dfrac{\rho\sigma_2}{\sigma_1} X$与$f(X)$也独立. 由于独立一定不相关,
+	  \begin{equation*}
+		  \mathrm{Cov}\left( f(X), Y - \frac{\rho\sigma_2}{\sigma_1} X \right) = 0.
+	  \end{equation*}
+		因此, \begin{align*}
+			\mathrm{Cov}(f(X),Y) &=\frac{\rho\sigma_2}{\sigma_1}\mathrm{Cov}\left(f(X), X\right)=\frac{\rho\sigma_2}{\sigma_1} \mathrm{E}(X-\mu_1)f(X)\\
+			&= \rho\sigma_1\sigma_2 \mathrm{E}f'(X)=\mathrm{Cov}(X,Y) \mathrm{E}f'(X).
+		\end{align*}
+	\end{proof}
+	
+	
+	\begin{Lemma}[正态分布的尾概率估计]\label{lemma:0.5}
+	    对于$x>0$, 有
+	    \begin{equation}
+	        \left(x^{-1} - x^{-3}\right)\varphi(x) \leqslant \int_{x}^{+\infty}\varphi(u)\mathrm{d}u \leqslant x^{-1}\varphi(x),
+	    \end{equation}
+	    其中$\varphi(\cdot)$是标准正态分布的概率密度函数.
+	\end{Lemma}
+	\begin{proof}
+	    替换$u = x + z$, 并且利用$\exp(-z^2/2)\leqslant 1$, 得到:
+	    \begin{equation*}
+	        \int_{x}^{+\infty}\varphi(u)\mathrm{d}u \leqslant \varphi(x)\int_{0}^{+\infty}\mathrm{e}^{-xz}\mathrm{d}z = \frac{1}{x}\varphi(x).
+	    \end{equation*}
+	    关于不等式另一边的证明, 我们只需注意到恒等式:
+	    \begin{equation*}
+	         \int_{x}^{+\infty}(1 - 3y^{-4})\mathrm{e}^{-y^2/2}\mathrm{d}y = (x^{-1} - x^{-3})\mathrm{e}^{-x^2/2}.
+	    \end{equation*}
+	\end{proof}
+	
+	\begin{Lemma}[Bernoulli 不等式]
+	    对于自然数$n$, 总有\begin{equation}
+	        \forall x\geqslant -1, (1+x)^n\geqslant 1+nx.
+	    \end{equation}
+	\end{Lemma}
+	\begin{proof}
+	    利用数学归纳法即可.
+	\end{proof}
+	
+	\begin{Lemma}
+	    假设随机变量$Z_1,Z_2,\cdots$独立同分布于标准正态分布, 对任何常数$K>2$, 以概率$1$, 对充分大的$M$有
+	    \begin{equation}
+	        \max_{j\in[M]} \abs{Z_j} \leqslant \sqrt{2K\ln M}.
+	    \end{equation}
+	\end{Lemma}
+	\begin{proof}
+	    记$\mathcal{Q}(x) = \int_{x}^{+\infty}\varphi(u)\mathrm{d}u$. 利用Bernoulli不等式和引理\ref{lemma:0.5}, 我们有
+	    \begin{align*}
+	        P\left(\max_{j\in[M]} \abs{Z_j} > \sqrt{2K\ln M} \right) &= 1 - \left[ 1-2\mathcal{Q}(\sqrt{2K\ln M}) \right]^M\\
+	        &\leqslant 2M\mathcal{Q}(\sqrt{2K\ln M})\\
+	        &\leqslant \frac{2M}{\sqrt{2K\ln M}}\frac{1}{\sqrt{2\pi}}\mathrm{e}^{-K\ln M}\\
+	        &= \frac{1}{\sqrt{\pi}M^{K-1}\ln^{1/2} M}.
+	    \end{align*}
+	    因此, $\sum_{M = 1}^{+\infty}P\left(\max_{j\in[M]} \abs{Z_j} > \sqrt{2K\ln M} \right) < +\infty$. 根据Borel-Cantelli引理, 
+	    \begin{equation*}
+	        P\left(\max_{j\in[M]} \abs{Z_j} > \sqrt{2K\ln M},~i.o. \right) = 0.
+	    \end{equation*}
+	    这说明我们可以以概率$1$保证, $\{\max_{j\in[M]} \abs{Z_j} > \sqrt{2K\ln M} \}$至多对有限个$M$发生.
+	\end{proof}
+\end{document}  % 结束
