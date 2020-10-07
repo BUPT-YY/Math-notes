@@ -3,7 +3,6 @@ layout: default
 ---
 
 ## 日常生活
-_yay_
 
 > [网络时间(精准对时)](https://time.is/)
 
