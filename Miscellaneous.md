@@ -1,7 +1,12 @@
 ---
 layout: default
 ---
-## 科研网站
+# Miscellaneous
+
+## [我的笔记](../notes)
+
+## About Math
+> [线代启示录(台湾老师讲线性代数)](https://ccjou.wordpress.com/)
 > [webofknowledge](http://webofknowledge.com/), 
 > [MathSciNet](https://mathscinet.ams.org/mathscinet), 
 > [计算数学分会](http://cscm.cc.ac.cn/)
