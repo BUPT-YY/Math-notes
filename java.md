@@ -37,7 +37,7 @@
     Java Specification Requests
     例: JSR335 Lambda Expressions for Java8
 #API文档 http://docs.oracle.com/javase/8/docs/api/index.html
-
+        https://docs.oracle.com/en/java/javase/16/docs/api/index.html
 #Java的语言特点
     面向对象(OOP)
     平台无关性
@@ -687,3 +687,76 @@ System类
         创建之后允许再做更改和变化
         其中StringBuilder类是JDK1.5增加的, 它是非线程安全的
     在循环中使用String的+=可能会带来效率问题
+
+    String类对象保存不可修改(immutable)的Unicode字符序列
+        String类的下述方法能创建并返回一个新的String对象实例:
+            concat(追加), replace, replaceAll, substring, toLowerCase, toUpperCase,
+            trim(空格指小于等于'U+0020'的字符), toString.
+        查找: endsWith, startsWith, indexOf, lastIndexOf.
+        比较: equals, euqalsIgnoreCase,
+        字符及长度: charAt, length
+        正则表达式: matches, replaceAll, split
+        JDK1.5增加了format函数 %1$,8.5f %序号$ 标识 宽度及精度 转换方式
+    
+        字符串常量
+            除了immuatble特点外, 还要注意String常量的内部化(interned)问题
+            即同样的字符串常量是合并的(是指向同一个引用的), 以保证"abc"=="abc"
+                但是"abc"!=new String("abc")
+        
+        
+    StringBuffer类: 对象保存可修改的Unicode字符序列, 线程安全
+        StringBuffer(), StringBuffer(int capacity), StringBuffer(String initialString)
+        实现修改操作的方法:
+            append, insert, reverse, setCharAt, setLength
+    StringBuilder类似, 它效率更高, 但不考虑线程安全性
+
+    java.util.StringTokenizer:字符串的分割功能
+        StringTokenizer(String str, String delim);
+        public int countTokens();           //分割串的个数
+        public boolean hasMoreTokens();     //是否还有分割串
+        public String nextToken();          //得到下一个分割串
+
+日期类 
+             getTime()       getTime()
+    Calendar ---------> Date ----------> long 
+
+    Calendar
+        得到一个实例 Calendar.getInstance() //Locale.ZH
+        .get(DAY_OF_MONTH)
+        .getDisplayName(DAY_OF_WEEK)
+        .set    .add(HOUR, 1)   .roll(MONTH, 5)
+        .setTime(data),     .getTime()
+    Date
+        new Date(),     new Date(System.currentTimeMillis())
+        .setTime(long)  .getTime()
+    SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        .format,    .parse
+    
+    Java8中的time api
+        java.time.*
+        java.time.format.*
+        主要的类
+            Instant时刻
+            Clock时区
+            Duration时间段
+            常用的类LocalDateTime, LocalDate, LocalTime
+                .of, .parse, .plus, .minus
+            DateTimeFormatter
+
+集合类(Collection API): 提供"集合"、"收集"的功能
+
+    Collection接口: 有两个子接口
+        List: 记录元素的保存顺序, 且允许有重复元素
+        Set: 不记录元素的保存顺序, 且不允许有重复元素
+    Map接口: 映射
+        键-值对(key-value pair)的集合
+    
+
+    Collection接口
+        add(element: object) : boolean
+        remove(element: object): boolean
+        size(): int
+        isEmpty(): boolean
+        contains(element: object): boolean
+        iterator(): Iterator
+    
