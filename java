@@ -760,3 +760,37 @@ System类
         contains(element: object): boolean
         iterator(): Iterator
     
+    接口的层次:
+    Iterable
+        Collection
+            Set
+                HashSet
+                TreeSet
+            List
+                Vector
+                    Stack
+                ArrayList
+            Queue
+                ArrayDeque
+                PriorityQueue
+            List, Queue
+                LinkedList
+    
+    List接口: 线性表(Linear list)
+        主要的实现类是ArrayList, LinkedList, 以及早期的Vector
+        public interface List<E> extends Collection<E> {
+            E get(int index);
+            E set(int index, E element);
+            void add(int index, E element);
+            E remove(int index);
+            int indexOf(Object o);
+            ...
+        }
+
+    Iterator迭代器(所有的Collection都能产生)
+        Iterator iterator = iterable.iterator();
+        while(iterator.hasNext())
+            doSomething(iterator.next());
+        for(Element e: list)
+            doSomething(e)
+        
