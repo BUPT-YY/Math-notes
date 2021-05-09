@@ -581,7 +581,7 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
         //finalize() 
         protected void finalize() throws throwable { ... }
         //main()
-        public static void main(String[] args) { ... }
+        public static void main(String... args) { ... }
 
     }
     (1) [transient] [volatile]跟内存访问、线程相关, [synchronized]也是线程相关的.
@@ -592,6 +592,181 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
         type constantName = Value;
         returnType methodName( [paramList] );
     }
+
+#变量及其传递
+    primitive type: 其值直接存于变量中, 在“这里”
+    reference type: 除占据一定的内存空间外, 它所引用的对象实体(由new创建)也要占据一定空间. 在"那里"
+        MyDate m,n; m = new MyDate();
+        n = m; n.addYear();
+    字段变量(field)与局部变量(local variable):
+        前者在类中, 后者是方法中定义的变量或方法的参变量
+
+        从内存角度看, 
+            存储位置: 字段变量为对象的一部分、存在于堆中, 局部变量是存在于栈中
+            生命周期不同
+            初始值: 字段变量可以自动赋初值, 局部变量则须显示赋值
+        从语法角度看:
+            字段变量属于类, 可以用public, private, static, final修饰
+            局部变量不能够被访问控制符及static修饰
+            都可以被final修饰
+    变量的传递
+        调用对象方法时, 要传递参数, 在传递参数时,
+        Java是值传递, 即, 是将表达式的值复值给形式参数
+        对于引用型变量, 传递的值是引用值, 而不是复制对象实体
+            可以改变对象的属性
+    变量的返回
+        返回基本类型
+        返回引用类型, 它就可以存取对象实体
+
+#多态和虚方法调用
+    多态(polymorphism)是指一个程序中相同的名字表示不同的含义的情况
+    多态有两种情形
+        编译时多态:
+            重载(overload) (多个同名的不同方法): 如p.sayHello(); p.sayHello("Wang");
+        运行时多态:
+            覆盖(override) (子类对父类进行覆盖)
+            动态绑定(dynamic binding) --- 虚方法调用(virtual method invoking)
+            在调用方法时, 程序会正确地调用子类对象的方法.
+    多态的特点大大提高了程序的抽象程度和简洁性.
+
+    上溯造型(upcasting): 把派生类当所基类来处理
+        Person p = new Student();
+        void fun(Person p) {...} fun(new Person());
+    
+    虚方法调用: 可以实现运行时的多态
+        子类重载了父类方法时, 运行时系统根据调用该方法的实例的类型来决定选择哪个方法调用
+        所有的非static且非private且非final方法都会自动地进行动态绑定.
+    
+    动态类型确定: 变量 instanceof 类型(结果是boolean值)
+        Object[] things = new Object[2];
+        things[0] = new Integer(3);
+        things[1] = new String("2.09");
+        System.out.println(things[0] instanceof Integer);
+        System.out.println(things[0] instanceof String);
+
+    什么情况下不是虚方法调用
+        Java中, 普通的方法是虚方法
+        但static/private/final方法不是虚方法调用
+        static/private/final与虚方法编译后用的指令是不同的.
+            static的方法, 以声明的类型为准, 与实例类型无关
+            private方法子类看不见, 也不会被虚化
+            final方法子类不能覆盖, 不存在虚化的问题.
+
+#对象的构造与初始化
+    构造器(constructor)
+        对象都有构造方法
+        如果没有, 编译器加一个default构造方法
+    抽象类(abstract):虽然不能new抽象类的对象, 但是有, 它的子类也会调它的构造方法!(日他仙人板板)
+    
+    调用本类或父类的构造方法
+        this调用本类的其它构造方法
+        super调用父类的构造方法
+        this或super要放在第一条语句, 且只能够有一条
+
+        如果没有this及super, 则编译器自动加上super(), 即调用直接父类的无参构造方法
+        (因为必须令所有父类的构造方法都得到调用, 否则整个对象的构建就可能不正确)
+    
+    一个问题
+        class A {
+            A(int a) {}
+        }
+        class B extends A {
+            B(String s) {} //不能通过编译
+        }
+        解决的三个方法: 
+            1、在A中实现A(){}
+            2、在B的构造器中加入super(3)
+            3、去掉A(int a) {}, 让编译器自动加入A(){}
+
+    创建对象时初始化
+        jb = new JB() {{ len = 18; d = 5; }}
+        这样可以针对没有相应构造函数, 但又要赋值
+        (注意双括号)
+
+    实例初始化(instance initializers)
+        在类中直接写 { 语句... }
+        实例初始化, 先于构造方法{}中的语句执行
+    静态初始化(static initializers)
+        static { 语句... }
+        静态初始化, 在第一次使用这个类的时候要执行
+        但其执行的具体时机是不确定的
+            但可以肯定的是: 总是先于实例的初始化
+
+    构造方法的执行过程
+        遵照以下步骤:
+            调用本类/父类的构造方法, 直至最高一层(Object)
+            按照声明顺序执行字段的初始化赋值
+            执行构造函数中的语句
+        简单说: 先父类构造, 再本类成员构造, 最后执行构造方法中的语句.
+            class Test {
+                int a = 2000;       //step2
+                Test() { 
+                    //super();      //step1
+                    this.a = 3000;  //step3
+                }
+            }
+    一个问题: 构造方法内部调用别的方法, 如果这个方法又是虚方法, 结果如何?
+        从语法上来说, 这是合法的, 但有时会造成事实上的不合理(有时step3才执行好初始化, 调用时值还没准备好).
+    --->> 在构造器中, 正常人应该避免调用任何方法, 用尽可能简单的方法使对象进入就绪状态
+    --->> 唯一能够安全调用的是具有final属性的方法
+
+#对象清除与垃圾回收
+    new创建对象, Java中是自动清除, 不需要使用delete
+
+    垃圾回收(garbage collection)
+        垃圾回收是由Java虚拟机的垃圾回收线程来完成的.
+        为什么系统知道对象是否为垃圾:
+            任何对象都有一个引用计数器, 当其值为0时, 说明该对象可以回收
+        System.gc()方法
+            它是System类的static方法
+            它可以建议(suggest)系统进行垃圾回收
+        Object的finalize()
+            系统在回收时会自动调用对象的finalize()方法
+            protected void finalize() throws throwable{}
+        
+            子类的finalize()
+                可以在子类的finalize()方法释放系统资源
+                一般来说, 子类的finalize()方法中应该调用父类的finalize()方法, 以保证父类的清理工作能够正常进行
+        由于finalize()方法调用的时机并不确定, 所以一般不用finalize()
+
+    try-with-resources: 关闭打开的文件、清除一些非内存资源等工作需要进行处理(JDK1.7以上)
+        对于实现了java.lang.AutoCloseable的对象
+        try(Scanner scanner = new Scanner(...)) {
+             ...
+        }
+        会自动调用其close()方法, 相当于
+        finally{
+            Scanner.close();
+        }
+
+#内部类与匿名类
+    内部类(inner class)是在其他类中的类
+        class xxx {
+            class yyyy{ }
+        }
+        编译器生成xxx$yyyy这样的class文件
+        内部类不能与外部类同名
+
+        使用: 
+            在封装它的类的内部： 与普通类的使用方式相同
+            在其他地方使用:
+                类名前要冠以外部类的名字
+                在new创建内部类时, 也要在new前面冠以变量对象
+                    xxx.new yyyy( [args...]);
+                
+        内部类中可以直接访问外部类的字段及方法
+            即使private也可以
+        如果内部类有与外部类同名的字段或方法, 则可以用
+            外部类名.this.字段/方法
+
+        内部类的修饰符
+            访问控制符: public, protected, 默认及private
+            
+
+
+    匿名类(anonymous class)是一种特殊的内部类, 它没有类名
+
+
 
 
 
