@@ -820,9 +820,87 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
             new Thread(
                 () -> { ... }
             ).start();
-        可以汉初, Lambda表达式是接口/接口函数的简写
 
+            @FunctionalInterface
+            interface Fun {double fun(double x); }
 
+            public class LambdaIntegral {
+                public static void main(String... args) {
+                    double d = integrate( x-> Math.sin(x), 0, Math.PI, 1e-5);
+                    System.out.println(d);
+                }
+                static double integrate(Fun f, double a, double b, double eps) {
+                    int n,k; double fa,fb,h,t1,p,s,x,t = 0;
+                    fa = f.fun(a); fb = f.fun(b);
+                    n = 1; h = b - a;
+                    t1 = h*(fa+fb)/2.0;
+                    p = Double.MAX_VALUE;
+                    while(p>=eps) {
+                        ...
+                    }
+                }
+            }
+
+            
+        可以看出, Lambda表达式是接口/接口函数的简写, 
+            Lambda表达式不仅仅简写了代码, 它还奖代码也当成数据来处理
+
+新的语法
+    从JDK1.5起, 增加了一些新的语法, 大部分是翻译器自动翻译的, 称为Compiler sugar
+
+    基本类型的包装类
+        它将基本类型(primitive type)包装成Object(reference type)
+            如int-> Integer
+        共8类: Boolean, Byte, Short, Character, Integer, Long, Float, Double
+        Integer I = new Integer(10);
+
+        Boxing & unboxing
+        Integer I = 10;     //译为Integer I = Integer.valueOf(10);
+        int i = I;          //译为int i = I.intValue();
+
+        主要方便用于集合中, 如:
+        Object[] array = { 1, "aaa" };
+    枚举(enum)是一种特殊的class类型
+        在简单的情况下, 用法与其它语言的enum相似
+            enum Light { Red, Yellow, Green };
+            Light light = Light.Red;
+        但实际上, 它生成了 final class Light extends java.lang.Enum<Light> {
+            public static final Light Red;
+            public static final Light Yellow;
+            public static final Light Green;
+            public static Light[] values();
+            public static Ligh valueOf(java.lang.String);
+        }
+    自定义枚举: 可以在enum定义体中, 添加字段、方法、构造方法
+    enum Direction {
+        EAST("东", 1), SOUTH("南", 2), WEST("西", 3), NORTH("北", 4);
+        private Direction(String desc, int num) {
+            this.desc = desc; this.num = num;
+        }
+        private String desc; private int num;
+        public String getDesc() { return desc; }
+        public int getNum() { return num; }
+    }
+
+    注解(annotation)
+        又称为注记/标记/标注/注释(不同于comments)/元数据
+        是在各种语法要素上加上附加信息, 以供编译器或其他程序使用
+        所有的注解都是java.lang.annotation.Annotation的子类
+
+        例: JDK内置的Annotation
+            @Override           表示覆盖父类的方法
+            @Deprecated         表示过时的方法
+            @SuppressWarnings   表示让编译器不产生警告 @SuppressWarnings({"unchecked", "deprecation"})
+        自定义注解
+            @Target(ElementType.METHOD)         //表明可以用于方法上
+            @Retention(RetentionPolicy.RUNTIME) //表明可以用反射来读取
+            @Documented                         //表明它会生成到javadoc中
+            public @interface DebugTime {  //使用@interface来定义一个类型, 表示它是一个注解
+                boolean value() default true;
+                long timeout() default 100;
+                String msg();
+                int[] other() default {};
+            }
 
 
 Week7. 工具类及常用算法
