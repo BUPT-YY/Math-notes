@@ -901,6 +901,51 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
                 String msg();
                 int[] other() default {};
             }
+        注解的使用
+            class MyClass {
+                @DebugTime(value = true, timeout = 10, msg = "时间太长", other = {1,2,3})
+                public double fib(int n) {
+                    if(n==0||n==1)
+                        return 1;
+                    else return fib(n-1)+fib(n-2);
+                }
+            }
+        用反射来读取注解
+            method.getAnnotation(注解.class)
+            method.getAnnocations()
+
+            Class clz = new MyClass().getClass();
+            Method method = clz.getMethod("fib", int.class);
+            for(Method m : clz.getDeclaredMethods() ) {
+                System.out.println(m);
+                for(Annotation ann : m.getAnnocations() ) {
+                    System.out.pritnln(ann.annotationType().getName());
+                }
+            }
+            
+            if(method.isAnnotationPresent(DebugTime.class)) {
+                DebugTime debug = method.getAnnotation(DebugTime.class);
+                boolean requireDebug = debug.value();
+                long timeout = debug.timeout();
+                if(requireDebug) {
+                    Date t0 = new Date();
+                    double fib = obj.fib(40);
+                    Data t1 = new Date();
+                    long time = t1.getTime() - t0.getTime();
+                    System.out.println("time used" + time);
+                    if(time > timeout) {
+                        System.out.println(debug.msg() );
+                    }
+                }
+            }
+            
+    没有指针的Java语言
+        引用(reference)实质就是指针(pointer)
+        但它是受控的、安全的, 例如
+            会检查空指引
+            没有指针运算 *(p+5)
+            不能访问没有引用到的内存
+            自动回收垃圾
 
 
 Week7. 工具类及常用算法
