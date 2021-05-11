@@ -965,7 +965,56 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
                 }
             (5)使用JNI(Java Native Interface)
                 它允许Java代码和其他语言写的代码进行交互
-                
+
+相等还是不等
+    ==: 基本类型是值相等, 引用类型是引用相等
+    但有具体情形具体分析:
+        数值类型: 转换后比较
+        浮点数, 最好不直接用==
+        Double.NAN==Double.NAN结果是false
+        boolean型无法与int相比较
+    例:
+        Integer i = new Integer(10);
+        Integer j = new Integer(10);
+        System.out.println(i == j); //false, 因为对象是两个
+
+        Integer m = 10;
+        Integer n = 10;
+        System.out.println(m == n); //true, 因为对象有缓存
+
+        Integer m = 200;
+        Integer n = 200;
+        System.out.println(p == q); //false, 因为对象是两个
+
+    装箱对象是否相等: 注意缓存
+    If the value p being boxed is true, false, a byte, or a char in
+    the range \u0000 to \u007f, or an int or short number between
+    -128 and 127(inclusive), then let r1 and r2 be the results of 
+    any two boxing conversions of p. It is always the case that r1==r2.
+
+    枚举对象: 内部进行了唯一实例化, 所以可以直接判断
+    
+    引用对象:
+        是直接看两个引用是否一样
+        如果要判断内容是否一样, 则要重写equals方法
+        如果重写equals方法, 则最好重写hashCode()方法
+
+    String对象
+        判断相等, 一定不要用==, 要用equals
+        但是字符串常量(String literal)及字符串常量会进行内部化(interned)
+        相同的字符串常量是==的.
+            例:
+                String hello = "Hello", lo = "lo";
+                System.out.println(hello == "Hello"); //true
+                System.out.println(Other.hello == hello); //true
+
+                System.out.println(hello == ("Hel" + "lo")); //true
+                System.out.println(hello == ("Hel" + lo)); //false
+
+                System.out.println(hello == new String("Hello")); //false
+                System.out.println(hello == ("Hel" + lo).intern()); //true
+               
+
 Week7. 工具类及常用算法
 
 #Java基础类库
