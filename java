@@ -1002,7 +1002,7 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
     String对象
         判断相等, 一定不要用==, 要用equals
         但是字符串常量(String literal)及字符串常量会进行内部化(interned)
-        相同的字符串常量是==的.
+        相同的字符串常量是==的.(很像整数的装箱)
             例:
                 String hello = "Hello", lo = "lo";
                 System.out.println(hello == "Hello"); //true
@@ -1013,7 +1013,89 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
 
                 System.out.println(hello == new String("Hello")); //false
                 System.out.println(hello == ("Hel" + lo).intern()); //true
-               
+
+#异常处理
+    exception: 异常/例外/差错/违例
+    对应着Java运行错误处理机制
+
+    基本写法
+        try {
+            BufferedReader bf = new BufferedReader(
+                new InputStreamReader(System.in); 
+            );
+            String s = bf.readLine();
+            int n = Integer.parseInt(s);
+        } catch(IOException e) {
+            e.printStackTrace();
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        } finally {
+            ...
+        }
+        其中, catch语句可以0至多个, 可以没有finally语句
+    对比C语言如何处理
+        if语句来判断是否出现了例外, 全局变量ErrNo
+
+        缺点:
+            可读性差:正常处理与异常处理的代码同样处理
+            可维护性差: 每次调用一个方法时都进行错误检查
+            职责不清楚:错误由谁处理不清
+    
+    Java中处理异常
+        抛出(throw)异常 throw new Exception()
+        运行时系统在调用栈中查找
+            从生成异常的方法开始进行回溯, 直到找到
+        捕获(catch)异常的代码
+    
+    异常的分类
+        Throwable
+            Error: JVM的错误
+                LinkageError
+                VirtualMachineError
+                AWTError
+                ...
+            Exception: 异常
+                RuntimeException:
+                    IndexOuofBoundsException
+                    ...
+                    ArithmeticException
+                ...
+                IOException:
+                    EOFException
+                    ...
+                    FileNotFoundException
+        一般所说的异常, 是指Exception及其子类
+    Exception类
+        构造方法
+            public Exception();
+            public Exception(String message);
+            Exception(String message, Throwable cause);
+        方法
+            getMessage();
+            getCause();
+            printStackTrace();
+
+    多异常的处理
+        子类异常应该写在父类异常的前面
+    finally语句
+        无论是否有异常都要执行
+            即使其中有break, return等语句
+            在编译时, finally部分代码生成了多遍
+
+    受检的异常
+        Exception分两种:
+            RuntimeException及其子类, 可以不明确处理
+            否则, 称为受检的异常(checked Exception)
+        受检的异常, 要求明确进行语法处理
+            要么捕(catch)
+            要么抛(throws): 在方法的签名后面用throws xxx来声明
+                在子类中, 如果要覆盖父类的一个方法, 若父类中的方法throws异常,
+                则子类的方法也可以throws异常
+
+                可以抛出更具体的异常(子类异常), 但不能抛出更一般的异常
+    
+        
+
 
 Week7. 工具类及常用算法
 
