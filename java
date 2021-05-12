@@ -229,8 +229,8 @@ Java中的数据类型分为两大类
         类(class)
         接口(interface)
         数组
-primitive types存储在栈, 在“这里”
-reference types存储在堆, 在“那里”: 引用类似指针, 在栈
+primitive types存储在栈, 在"这里"
+reference types存储在堆, 在"那里": 引用类似指针, 在栈
 
 boolean只有true和false, 不可以用0、非0替代
 char c1 = '\u0061'; //十六进制编码
@@ -594,7 +594,7 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
     }
 
 #变量及其传递
-    primitive type: 其值直接存于变量中, 在“这里”
+    primitive type: 其值直接存于变量中, 在"这里"
     reference type: 除占据一定的内存空间外, 它所引用的对象实体(由new创建)也要占据一定空间. 在"那里"
         MyDate m,n; m = new MyDate();
         n = m; n.addYear();
@@ -1120,6 +1120,28 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
     自定义异常类
         (1) 继承Exception类/或某个Exception子类
         (2) 定义属性/方法, 或重载父类的方法
+        class MyException extends Exception {
+            public MyException(String message) {
+                super(message);
+            }
+            public MyException(String message, Exception cause) {
+                super(message, cause);
+            }
+        }
+
+
+    重抛出异常及异常链接: 对于异常, 不仅要进行捕获处理, 有时候还需要将此异常进一步传递给调用者, 以便
+        让调用者也能感受到这种异常. 这时可以在catch语句块或finally语句块中采取以下三种方式:
+        (1) throw e; //将异常再次抛出
+        (2) throw new Exception("some message"); //重新生成一个异常, 并抛出
+        (3) throw new Exception("some message", e); //.... , 该异常包含了当前异常的信息
+            //可用e.getCause()来得到内部异常
+
+    断言(assertion): 在调试程序时, 如果表达式不为true, 则程序会产生异常, 并输出相关的错误信息
+        assert 表达式;
+        assert 表达式: 信息;
+    
+
 
 Week7. 工具类及常用算法
 
