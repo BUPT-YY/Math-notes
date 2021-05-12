@@ -1093,9 +1093,33 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
                 则子类的方法也可以throws异常
 
                 可以抛出更具体的异常(子类异常), 但不能抛出更一般的异常
-    
-        
+            public void readFile() throws IOException {
+                FileInputStream in = new FileInputStream("myFile.txt");
+                int b; b = in.read();
+                while(b!= -1) {
+                    System.out.println((char)b);
+                    b = in.read();
+                }
+                in.close();
+            }
+            public static void main(String[] args) {
+                try {
+                    readFile();
+                } catch(IOException e) {
+                    System.out.println(e);
+                }
+            }
+    try-with-resources        
+            String path = "myFile.txt";
+            try(BufferedReader br = new BufferedReader(new FileReader(path))) {
+                System.out.println(br.readLine());
+            } catch(IOException e) {
+                System.out.println(e);
+            }
 
+    自定义异常类
+        (1) 继承Exception类/或某个Exception子类
+        (2) 定义属性/方法, 或重载父类的方法
 
 Week7. 工具类及常用算法
 
