@@ -1170,8 +1170,27 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
             //fail("Not yet implemented");              //表示程序出错
         }
 
+    程序的调试
+        程序中的错误通常分为三大类:
+            语法错误(Syntax error): 编辑、编译器发现
+            运行错误(Runtime error): 异常处理机制
+            逻辑错误(Logic error):  调试(debug)、单元测试(unit test)
+        调试的三种手段:
+            断点(breakpoint)
+                切换断点(toggle breakpoint): 如Eclipse Ctrl+Shift+B,
+            跟踪(trace)
+                逐语句执行: 如Eclipse F5
+                逐函数执行: 如Eclipse F6
+                跳出函数:   如Eclipse F7
+                运行到光标处:如Eclipse Ctrl+R
+            监视(watch)
+                即时监视: 鼠标指向变量
+                快速监视: 右键, Inspector
+                添加监视: 右键, Watch
+                调用堆栈等等
+            
 
-Week7. 工具类及常用算法
+工具类及常用算法
 
 #Java基础类库
     java.lang Java语言的核心类库, Java是自动导入Java.lang.*的
