@@ -1462,3 +1462,82 @@ Stack栈: LIFO(Last in First Out), 重要的线性结构
     stk.push("Tom");
     while(!stk.empty())
         System.out.println(stk.pop());
+
+Queue队列: FIFO(First in First Out), 也是重要的数据结构
+    重要的实现是LinkedList类
+            可抛异常的    返回元素的(null)
+    插入      add(e)      offer(e)
+    移除      remove()    poll()
+    检查      element()   peek()
+
+    Queue<Integer> q = new LinkedList<>();
+    for(int i = 0; i < 5; ++i) 
+        q.offer(i);
+    while(!q.isEmpty() )
+        System.out.println(stk.poll());
+    
+几个早期的类/接口
+    Vector, 现多用ArrayList
+        相当于动态数组, elementAt
+    Stack, 现多用LinkedList
+        Stack是Vector的子类, push, pop, peek
+    Hashtable， 现多用HashMap
+        Hashtable实现Map接口, 参见Properties类
+    Enumeration, 先多用Iterator
+        Enumeration用另一种方式实现Iterator的功能
+        如Vector可得到枚举器
+        Enumeration<E> e = v.elements();
+        while(e.hasMoreElements()) {
+            doSomething(e.nextElement());
+        }
+
+Set集
+        两个重要的实现HashSet及TreeSet
+        其中TreeSet的底层是用TreeMap来实现的
+
+        Set中对象不重复, 即:
+            hashCode()不等
+            如果hashCode()相等, 再看equals或==是否为false
+
+        Set<String> set = new HashSet<String>();
+        set.add("Yong");
+        set.add("Liu");
+
+        System.out.println(set.contains("Yong"));
+        for(String obj: set) {
+            System.out.println(obj);
+        }
+
+    Hashtable的实现
+        String对象的哈希码: s[0]*31^(n-1)+s[1]*31^(n-2)+...+s[n-1]
+                使用int算法, ^是求幂, n是字符串长度
+        一般要覆盖时, 要同时覆盖hashCode、equals方法
+    
+    Map是键-值对的集合
+        其中可以取到entrySet()、keySet()、values()
+        Map.Entry是一个嵌套接口
+    Map类的重要实现: HashMap类、TreeMap类(用红黑数的算法)
+        Map
+            AbstractMap
+                HashMap
+                TreeMap
+        Map, Dictionary
+            Hashtable
+                Properties
+        
+        Map<String, String> map = new TreeMap<String,String>();
+        map.put("y", "Yong");
+        map.put("l", "Liu");
+        System.out.println(map.get("y"));
+        for(String key: map.keySet()) 
+            System.out.println(key + ": " + map.get(key));
+        for(String value: map.values())
+            System.out.println(value);
+        for(Map.Entry<String,String> entry : map.entrySet())
+            System.out.println(entry.getKey() + ": "+ entry.getValue());
+        Iterator it = map.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry<String,String> entry = (Map.Entry<String,String> entry)it;
+            System.out.println(entry.getKey() + ": "+ entry.getValue());
+        }
+    
