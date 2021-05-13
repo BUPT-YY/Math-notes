@@ -1443,3 +1443,22 @@ System类
         for(Element e: list)
             doSomething(e)
         
+        List<T> list = new LinkedList<>();
+        list.add(new T(...));
+        list.add(new T(...));
+        
+        Iterator<T> iterator = list.iterator();
+        while(iterator.hasNext()) {
+            T temp = iterator.next();
+            System.out.println(temp.toString());
+        }
+
+Stack栈: LIFO(Last in First Out), 重要的线性结构
+    public Object push(Object item);    //将指定对象压入栈
+    public Object pop();                //将栈顶元素取出, 并返回这个对象
+    public boolean empty();             //判断栈中有没有对象元素
+
+    Stack<String> stk = new Stack<>();
+    stk.push("Tom");
+    while(!stk.empty())
+        System.out.println(stk.pop());
