@@ -1585,4 +1585,14 @@ Set集
         要么提供一个java.lang.Comparator
         实现方法 public int compare(T o1, T o2)
             这些方法的含义要与equals不冲突
-         
+
+Collections类
+    此类完全由在collection上进行操作静态方法组成
+    如sort、binearySearch、reverse等
+    更一般地, 使用Lambda表达式
+
+    List<String> names = new ArrayList<>((Arrays.asList("勇 杨", "文博 任")));
+    Collections.sort(names, (s1,s2)-> s1.length()- s2.length());
+    int index = Collections.binarySearch(names, "勇 杨", (s1,s2)-> s1.length()- s2.length());
+    if(index < 0)
+        System.our.println("Not found");
