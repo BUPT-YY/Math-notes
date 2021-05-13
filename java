@@ -1150,6 +1150,27 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
         在运行时, 要使assert起作用, 则在运行时, 使用选项-ea (enableassertions)
         java -ea Main
     
+    程序的测试及JUnit
+            程序的修改是要经常进行的过程, 必须保证程序在修改后其结果仍然是正确的.
+            在编写程序代码的同时, 还编写测试代码来判断这些程序是否正确.
+            这个过程称为"测试驱动"的开发过程
+            从而保证了代码的质量, 减少了后期的查错与调试的时间, 所以实际上它提高了程序的开发效率
+        在Java的测试过程, 经常使用JUnit框架
+            参见http://www.junit.org
+        现在大多数Java集成开发工具都提供了对JUnit的支持
+            如Eclipse New-Junit Test Case; Run as Junit Test
+        import static org.junit.Assert.*;
+        import org.junit.Test;
+
+        @Test
+        public void test1() {
+            assertEquals(a.sum(1,2) , 3);
+            assertEquals(a.sum(1,2) , a.sum(2,1) );     //表示程序要保证两个参数相等
+            assertNull(A);                              //表示参数A要为null
+            //fail("Not yet implemented");              //表示程序出错
+        }
+
+
 Week7. 工具类及常用算法
 
 #Java基础类库
