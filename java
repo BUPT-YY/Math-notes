@@ -1311,7 +1311,34 @@ System类
         public boolean hasMoreTokens();     //是否还有分割串
         public String nextToken();          //得到下一个分割串
 
-日期类 
+        例:
+        StringTokenizer st = new StringTokenizer("this is a test", " ");
+        while(st.hasMoreTokens()) 
+            System.out.println(st.nextToken());
+
+
+日期类
+    import static java.util.Calendar.*;
+    import static java.util.*;
+    例:
+        try{
+            Calendar calendar = Calendar.getInstance();
+            calendar.roll(MONTH, 1);
+            System.out.println(calendar.get(MONTH) + "月" + calendar.get(DAY)+"日");
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            System.out.println(formatter.format(date));
+
+            date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-4-23");
+            calendar.setTime(date);
+            System.out.println(calendar.getDisplayName(DAY_OF_WEEK,LONG, Locale.US ));
+
+        } catch(java.text.ParseException e) {
+            //...
+        }
+        
+
+
              getTime()       getTime()
     Calendar ---------> Date ----------> long 
 
@@ -1337,6 +1364,33 @@ System类
             常用的类LocalDateTime, LocalDate, LocalTime
                 .of, .parse, .plus, .minus
             DateTimeFormatter
+    例:
+        try{
+            LocalDateTime now = LocalDateTime.now();
+            System.out.println(now);
+
+            LocalDateTime now2 = LocalDateTime.now(ZoneId.of("Europe/Paris"));
+            System.out.println(now2);
+
+            LocalDateTime d1 = LocalDateTime.of(2021, 5, 4, 23, 59, 59);
+            System.out.println(d1);
+
+            LocalDateTime d2 = LocalDateTime.parse("2021-5-4T23:59:59");
+            System.out.println(d2);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/ddTHH:mm:ss"");
+            LocalDateTime d3 = LocalDateTime.parse("2021/5/4T23:59:59", formatter);
+            System.out.println(d3);
+
+            /*
+                d3.getYear(); 
+                d3.getMonth();  //这不是整数, 而是枚举
+                d3.getDayOfYear(); d3.getDayOfMonth(); d3.getDayOfWeek();
+                d3.getHour();
+            */
+        } catch(java.text.ParseException e) {
+            //...
+        }
 
 集合类(Collection API): 提供"集合"、"收集"的功能
 
