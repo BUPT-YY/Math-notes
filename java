@@ -1140,9 +1140,16 @@ Remark: Java中没有无符号数, 用long处理C/C++中的uint
     断言(assertion): 在调试程序时, 如果表达式不为true, 则程序会产生异常, 并输出相关的错误信息
         assert 表达式;
         assert 表达式: 信息;
+        例: static double test(double x) {
+                double result = x*x + 1;
+                return result;
+            }
+            public static void main(String[] args) {
+                assert test(3)==5 : "算法不正确";
+            }
+        在运行时, 要使assert起作用, 则在运行时, 使用选项-ea (enableassertions)
+        java -ea Main
     
-
-
 Week7. 工具类及常用算法
 
 #Java基础类库
