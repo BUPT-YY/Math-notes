@@ -1540,4 +1540,49 @@ Set集
             Map.Entry<String,String> entry = (Map.Entry<String,String> entry)it;
             System.out.println(entry.getKey() + ": "+ entry.getValue());
         }
+
+排序与查找
+    自编程序: 冒泡、选择、快速排序等
+    系统已有: Arrays类、Collections类
+
+    Arrays类是用于对数组进行排序和搜索的类
+        Arrays.asList(10,7,6,5,9) 方法可以直接得到一个List对象
+    Arrays类提供了sort()和binarySearch()
+        执行binarySearch()之前应当调用sort()
+        public static void sort(List list);
+        public static void sort(List list, Comparator c);
+        public static int binarySearch(List list, Object key);
+        public static int binarySearch(List list, Object key, Comparator c);
     
+        static Random r = new Random();
+        static String ssource = "0123456789ABCDEF";
+        static char[] src = ssource.toCharArray(); 
+        static String[] randStrings(int length, int n) {
+            String[] res = new String[n];
+            char[] buf = new char[length];
+            for(int k = 0; k < n; ++k) {
+                for(int i = 0; i < length; ++i) {
+                    int rnd = Math.abs(r.nextInt()) % src.length;
+                    buf[i] = src[rnd];
+                }
+                res[k] = new String(buf);
+            }
+            return res;
+        }
+
+        public static void main(String... args) {
+            String[] s = randStrings(4,10);
+            Arrays.<String>sort(s);
+            System.out.println(Arrays.toString(s));
+            int loc = Arrays.<String>binarySearch(s,s[2]);
+            System.out.println("Location of " + s[2] + " is " + loc);
+        }
+    关于比较
+        要么对象是java.lang.Comparable
+        实现方法 public int compareTo(Object obj) {
+                return this.price - ((Book)obj).price;
+            }
+        要么提供一个java.lang.Comparator
+        实现方法 public int compare(T o1, T o2)
+            这些方法的含义要与equals不冲突
+         
