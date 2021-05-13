@@ -1596,3 +1596,10 @@ Collections类
     int index = Collections.binarySearch(names, "勇 杨", (s1,s2)-> s1.length()- s2.length());
     if(index < 0)
         System.our.println("Not found");
+
+泛型(Generic)是JDK1.5增加地最重要的Java语言特性
+    使用泛型可以针对不同的类有相同地处理办法
+        Vector<String> v = new Vector<String> ();
+    使用泛型的好处
+        类型更安全
+        适用更广泛, 针对不同的类有相同的处理办法
