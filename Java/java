@@ -1604,3 +1604,114 @@ Collections类
         类型更安全
         适用更广泛, 针对不同的类有相同的处理办法, 但这些类之间不一定有继承关系
 
+    自定义泛型类
+        class GenericTree {
+            public static void main(String[] args) {
+                TNode<String> t = new TNode<>("Roo");
+                t.add("Left"); t.add("Middle"); t.add("Right");
+                t.getChild(0).add("aaa");
+                t.getChild(0).add("bbb");
+                t.traverse();
+            }
+        }
+        class TNode<T> {
+            private T value;
+            private ArrayList<TNode<T>> children = new ArrayList<>();
+            TNode(T v) {this.value = v;}
+            public T getValue() {return this.value;}
+            public void add(T v) {
+                TNode<T> child = new TNode<>(v);
+                this.children.add(child);
+            }
+            public TNode<T> getChild(int i) {
+                if((i<0)||(t>this.children.size())) return null;
+                return (TNode<T>)this.children.get(i);
+            }
+            public void traverse() {
+                System.out.println(this.value);
+                for(TNode child: this.children)
+                    child.traverse();
+            }
+        }
+
+
+    自定义泛型方法
+        注意: <> 要写到方法名字的前面
+        class GenericMethod {
+            public static void main(String[] args) {
+                Date data = BeanUtil.<Date>getInstance("java.util.Date");
+                System.out.println(date);
+            }
+        }
+        class BeanUtil {
+            public static <T> T getInstance(String clzName) {
+                try {
+                    Class c = Class.forName(clzName);
+                    return (T) c.newInstance();
+                } catch(ClassNotFoundException ex) {}
+                  catch(InstantiationException ex) {}
+                  catch(IllegalAccessException ex) {}
+                return null;
+            }
+        }
+
+    对类型的限定
+        使用?  
+            例: Collections.reverse(List<?> list)
+        使用extends (是E的子类)
+            例: Set.addAll(Collection<? extends E> col)
+        使用super   (是T的父类)
+            例: Collections.fill(List<? super T> list, T obj)
+    
+    有时泛型写起来比较复杂
+        例:
+        Arrays.sort方法
+        public static <T> void sort(T[] a, Comparator<? super T> c)
+
+        Stream.map方法
+        public <R> Stream <R> map(Function<? super T, ? extends R> mapper)
+
+        Collections.max方法
+        public static <T extends Object & Comparable<? super T>>
+            T max(Collection<? extends T> coll)
+
+常用算法: 枚举、迭代、递归、回溯
+    枚举: exhaust algorithm
+        基本模式:
+            for(...) { 
+                if(...)
+                    ... 
+            } 
+
+        例: 求三位的水仙花数
+        public static void main(String... args) {
+            for(int a = 1; a <= 9; ++a)
+            for(int b = 0; b <= 9; ++b)
+            for(int c = 0; c <= 9; ++c)
+                if(a*a*a+b*b*b+c*c*c == 100*a+10*b+c)
+                    System.out.println(100*a+10*b+c);
+        }
+    迭代: iterative algorithm
+        多次利用同一公式进行计算, 每次将计算的结果再代入公式进行计算, 从而逐步逼近精确解
+        基本模式:
+            while() {
+                x = f(x);
+            }
+
+        例: 开方
+        static double sqrt(double a) {
+            double x = 1.0;
+            do {
+                x = (x + a/x)/2;
+            } while(Math.abs(x*x-a)/a > 1e-6);
+            return x;
+        }
+
+    递归: recursive 一个过程调用过程本身
+        基本模式
+            f(n) {
+                g(f(n), ..., f(0));
+            }
+        例: Factorial
+    
+    回溯: back-track
