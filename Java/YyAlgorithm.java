@@ -1,9 +1,12 @@
 import java.util.*;
 
 
-public class YyAlgorithm {
+class YyAlgorithm {
 	public static int upperBound(long[] a, long key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(long[] a, long key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(long[] a, int fromIndex, int toIndex,
@@ -11,9 +14,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
-	
+	public static int lowerBound(long[] a, int fromIndex, int toIndex,
+									long key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
+
 	public static int upperBound(short[] a, short key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(short[] a, short key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(short[] a, int fromIndex, int toIndex,
@@ -21,9 +32,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
+	public static int lowerBound(short[] a, int fromIndex, int toIndex,
+									short key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }	
 
 	public static int upperBound(char[] a, char key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(char[] a, char key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(char[] a, int fromIndex, int toIndex,
@@ -31,9 +50,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
-	
+	public static int lowerBound(char[] a, int fromIndex, int toIndex,
+									char key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }	
+
 	public static int upperBound(byte[] a, byte key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(byte[] a, byte key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(byte[] a, int fromIndex, int toIndex,
@@ -41,9 +68,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
+	public static int lowerBound(byte[] a, int fromIndex, int toIndex,
+									byte key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
 
 	public static int upperBound(int[] a, int key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(int[] a, int key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(int[] a, int fromIndex, int toIndex,
@@ -51,9 +86,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
-	
+	public static int lowerBound(int[] a, int fromIndex, int toIndex,
+                                   int key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
+
 	public static int upperBound(double[] a, double key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(double[] a, double key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(double[] a, int fromIndex, int toIndex,
@@ -61,9 +104,17 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
+	public static int lowerBound(double[] a, int fromIndex, int toIndex,
+								double key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
 
 	public static int upperBound(float[] a, float key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(float[] a, float key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(float[] a, int fromIndex, int toIndex,
@@ -71,9 +122,18 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
+	public static int lowerBound(float[] a, int fromIndex, int toIndex,
+								float key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
+
 
     public static int upperBound(Object[] a, Object key) {
         return upperBound0(a, 0, a.length, key);
+    }
+	public static int lowerBound(Object[] a, Object key) {
+        return lowerBound0(a, 0, a.length, key);
     }
 
 	public static int upperBound(Object[] a, int fromIndex, int toIndex,
@@ -81,17 +141,28 @@ public class YyAlgorithm {
         rangeCheck(a.length, fromIndex, toIndex);
         return upperBound0(a, fromIndex, toIndex, key);
     }
-
+	public static int lowerBound(Object[] a, int fromIndex, int toIndex,
+                                   Object key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return lowerBound0(a, fromIndex, toIndex, key);
+    }
 
 	//find in [0, a.length)
 	public static <T> int upperBound(T[] a, T key, Comparator<? super T> c) {
         return upperBound0(a, 0, a.length, key, c);
+    }
+	public static <T> int lowerBound(T[] a, T key, Comparator<? super T> c) {
+        return lowerBound0(a, 0, a.length, key, c);
     }
 
 	//find in [fromIndex, toIndex)
 	public static <T> int upperBound(T[] a, int fromIndex, int toIndex, T key, Comparator<? super T> c) {
 		rangeCheck(a.length, fromIndex, toIndex);
 		return upperBound0(a, fromIndex, toIndex, key, c);
+	}
+	public static <T> int lowerBound(T[] a, int fromIndex, int toIndex, T key, Comparator<? super T> c) {
+		rangeCheck(a.length, fromIndex, toIndex);
+		return lowerBound0(a, fromIndex, toIndex, key, c);
 	}
 
 	// Like public version, but without range checks.
@@ -294,14 +365,18 @@ public class YyAlgorithm {
             throw new ArrayIndexOutOfBoundsException(toIndex);
     }
 
-  
-  
-//Test cases
-  public static void main(String[] args) {
+}
+
+
+public class Test {
+
+    
+
+	public static void main(String[] args) {
 		double[] a = new double[] {1,2,3,4,5,6,7,8,9.0,9,9.0000000000000001,9.000002,9.000003,10};
 		int K = YyAlgorithm.upperBound(a, 9);
 		System.out.println(K);
 	}
-  
-  
+	
+	
 }
