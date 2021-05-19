@@ -202,6 +202,24 @@ class YyAlgorithm {
 	}
 
 	// Like public version, but without range checks.
+	private static int lowerBound0(int[] a, int fromIndex, int toIndex, int key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			int midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
+
+	// Like public version, but without range checks.
 	private static int upperBound0(short[] a, int fromIndex, int toIndex, short key) {
 		int len = toIndex - fromIndex;
 		while(len > 0) {
