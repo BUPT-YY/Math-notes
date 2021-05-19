@@ -182,6 +182,23 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
+	// Like public version, but without range checks.
+	private static int lowerBound0(long[] a, int fromIndex, int toIndex, long key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			long midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
 
 	// Like public version, but without range checks.
 	private static int upperBound0(int[] a, int fromIndex, int toIndex, int key) {
@@ -236,6 +253,23 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
+	// Like public version, but without range checks.
+	private static int lowerBound0(short[] a, int fromIndex, int toIndex, short key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			short midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
 
 	// Like public version, but without range checks.
 	private static int upperBound0(char[] a, int fromIndex, int toIndex, char key) {
@@ -254,7 +288,24 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
-
+	// Like public version, but without range checks.
+	private static int lowerBound0(char[] a, int fromIndex, int toIndex, char key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			char midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
+    
 	// Like public version, but without range checks.
 	private static int upperBound0(byte[] a, int fromIndex, int toIndex, byte key) {
 		int len = toIndex - fromIndex;
@@ -272,7 +323,24 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
-
+	// Like public version, but without range checks.
+	private static int lowerBound0(byte[] a, int fromIndex, int toIndex, byte key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			byte midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
+    
 	// Like public version, but without range checks.
 	private static int upperBound0(double[] a, int fromIndex, int toIndex, double key) {
 		int len = toIndex - fromIndex;
@@ -300,7 +368,34 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
-
+	// Like public version, but without range checks.
+	private static int lowerBound0(double[] a, int fromIndex, int toIndex, double key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			double midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else if(key > midVal) {
+				len = half;
+			} else {
+                long midBits = Double.doubleToLongBits(midVal);
+                long keyBits = Double.doubleToLongBits(key);
+                if(midBits < keyBits) {
+                    fromIndex = middle;
+                    ++fromIndex;
+                    len -= (half + 1);
+                } else {
+                    len = half;
+                }
+            }
+		}
+		return fromIndex;
+	}
+    
 	// Like public version, but without range checks.
 	private static int upperBound0(float[] a, int fromIndex, int toIndex, float key) {
 		int len = toIndex - fromIndex;
@@ -328,6 +423,34 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
+	// Like public version, but without range checks.
+	private static int lowerBound0(float[] a, int fromIndex, int toIndex, float key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			float midVal = a[middle];
+			if(midVal < key) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else if(key > midVal) {
+				len = half;
+			} else {
+                int midBits = Float.floatToIntBits(midVal);
+                int keyBits = Float.floatToIntBits(key);
+                if(midBits < keyBits) {
+                    fromIndex = middle;
+                    ++fromIndex;
+                    len -= (half + 1);
+                } else {
+                    len = half;
+                }
+            }
+		}
+		return fromIndex;
+	}
+
 
 	// Like public version, but without range checks.
 	private static <T> int upperBound0(T[] a, int fromIndex, int toIndex, T key, Comparator<? super T> c) {
@@ -347,19 +470,38 @@ class YyAlgorithm {
 		}
 		return fromIndex;
 	}
-
+	// Like public version, but without range checks.
+	private static <T> int lowerBound0(T[] a, int fromIndex, int toIndex, T key, Comparator<? super T> c) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+			T midVal = a[middle];
+            int cmp = c.compare(midVal, key);
+			if(cmp < 0) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
 
 	// Like public version, but without range checks.
     private static int upperBound0(Object[] a, int fromIndex, int toIndex,
                                      Object key) {
         int len = toIndex - fromIndex;
+        @SuppressWarnings("rawtypes")
+        Comparable key0 = (Comparable)key;
+
 		while(len > 0) {
 			int half = len >>> 1;
 			int middle = fromIndex + half;
-			@SuppressWarnings("rawtypes")
-			Comparable midVal = (Comparable)a[middle];
+			Object midVal = a[middle];
 			@SuppressWarnings("unchecked")
-			int cmp = midVal.compareTo(key);
+			int cmp = key0.compareTo(midVal);
 			if(cmp < 0) {
 				len = half;
 			} else {
@@ -370,6 +512,27 @@ class YyAlgorithm {
 		}
 		return fromIndex;
     }
+
+	// Like public version, but without range checks.
+	private static int lowerBound0(Object[] a, int fromIndex, int toIndex, Object key) {
+		int len = toIndex - fromIndex;
+		while(len > 0) {
+			int half = len >>> 1;
+			int middle = fromIndex + half;
+            @SuppressWarnings("rawtypes")
+			Comparable midVal = (Comparable)a[middle];
+            @SuppressWarnings("unchecked")
+            int cmp = midVal.compareTo(key);
+			if(cmp < 0) {
+				fromIndex = middle;
+				++fromIndex;
+				len -= (half + 1);
+			} else {
+				len = half;
+			}
+		}
+		return fromIndex;
+	}
 
 
 	static void rangeCheck(int arrayLength, int fromIndex, int toIndex) {
