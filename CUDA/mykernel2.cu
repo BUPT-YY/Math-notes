@@ -1,3 +1,11 @@
+//tested result:
+/* My device : GTX 960M
+* matrix size: 1024*2048, 2048*1024
+* GPU error = 0.0278335, test passed.
+* GPU average used time: 15525.5μs.
+* GPU average Throughput: 276.639GFLOPS
+*/
+
 #include <iostream>
 #include <random>
 #include <cmath>
