@@ -1,11 +1,10 @@
 //tested result:
 /* My device : GTX 960M
+* matrix size: 1024*2048, 2048*1024
 * GPU error = 0.00692065, test passed.
 * GPU average used time: 3000.61μs.
 * GPU average Throughput: 178.921GFLOPS
 */
-
-
 
 #include <iostream>
 #include <random>
@@ -13,6 +12,7 @@
 //#include <chrono>
 #include <vector>
 #include <algorithm>
+#include <string>
 #include "/usr/local/cuda-10.2/include/cuda_runtime.h"
 #include "/usr/local/cuda-10.2/include/device_launch_parameters.h"
 
@@ -115,22 +115,24 @@ double matrixMmultGPU(  //both row-major
 
 
 
-int main(void)
+int main()
 {
   
   //This Kernel computes C = A * B, where
   // A is a N * K matrix,
   // B is a K * M matrix
-  constexpr int N = 16*BLOCK_SIZE;
-  constexpr int K = 32*BLOCK_SIZE;
-  constexpr int M = 16*BLOCK_SIZE;
+
+  constexpr int N = 1024;
+  constexpr int K = 2048;
+  constexpr int M = 1024;
   
-  int TestTime = 1; std::vector<float> statistics;
+  int TestTime = 1000; std::vector<float> statistics;
+  int randTest = std::uniform_int_distribution<>(0, TestTime) (e);
   for(int t = 0; t < TestTime; ++t) {
     YYmatrix A = generate(N*K), B = generate(K*M), C(N*M,0), D(N*M, 0);
     statistics.push_back(matrixMmultGPU(A,B,C,K));
 
-    if(t==0) {  //exam the result in the first time
+    if(t==randTest) {  //exam the result only once
       matrixMmultCPU(A,B,D,K);
       float l2error = 0;
       for(int i = 0; i < N; ++i) {
@@ -140,7 +142,8 @@ int main(void)
         } 
       }
       l2error = sqrt(l2error);
-      std::cout << "GPU error = " << l2error << std::endl;
+      std::string result = (l2error < 0.05) ? ", test passed." : ", test failed."; 
+      std::cout << "GPU error = " << l2error << result << std::endl;
       
      /*for(int i = 0; i < 4; ++i) {
      for(int j = 0; j < 10; ++j)
@@ -157,10 +160,6 @@ int main(void)
   }
   float averageTime = std::accumulate(statistics.begin(), statistics.end(), 0.0f)/TestTime;
   std::cout << "GPU average used time: " << averageTime << "μs." << std::endl;
-  std::cout << "GPU average Throughput: " << 2.0*N*M*K/averageTime/1000.0 << "GFLOPS" << std::endl;
-
-
-
-  
+  std::cout << "GPU average Throughput: " << 2.0*N*M*K/averageTime/1000.0 << "GFLOPS" << std::endl; 
   return 0;
 }
