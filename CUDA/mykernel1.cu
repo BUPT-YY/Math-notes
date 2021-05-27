@@ -1,3 +1,12 @@
+//tested result:
+/* My device : GTX 960M
+* GPU error = 0.00692065, test passed.
+* GPU average used time: 3000.61μs.
+* GPU average Throughput: 178.921GFLOPS
+*/
+
+
+
 #include <iostream>
 #include <random>
 #include <cmath>
