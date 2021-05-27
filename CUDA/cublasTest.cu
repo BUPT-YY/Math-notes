@@ -1,3 +1,8 @@
+//Usage: set in vscode-code_runner:
+// "code-runner.executorMapByFileExtension": {
+//        ".cu": "cd $dir && nvcc -lcublas $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+//    },
+
 #include <iostream>
 #include <random>
 #include <cmath>
