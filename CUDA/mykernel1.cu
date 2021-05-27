@@ -30,28 +30,32 @@ std::vector<float> generate(int size) {
   return vec;
 }
 
-#define BLOCK_SIZE 32
+#define TS 32
 // Kernel function to add the elements of two arrays
 __global__ void mmult(float* A, float* B, float* C, int K, int M) {
-  int blockCol = blockIdx.x, blockRow = blockIdx.y;
-  float runningSum = 0.0f;
-  int col = threadIdx.x,row = threadIdx.y;
-  int BK = K/BLOCK_SIZE;
-  for(int bk = 0; bk < BK; ++bk) {
-    float* asub = A + K * BLOCK_SIZE * blockRow + BLOCK_SIZE * bk;
-    float* bsub = B + M * BLOCK_SIZE * bk + BLOCK_SIZE * blockCol;
-    __shared__ float as[BLOCK_SIZE][BLOCK_SIZE];
-    __shared__ float bs[BLOCK_SIZE][BLOCK_SIZE];
-    as[row][col] = asub[row*K + col];
-    bs[row][col] = bsub[row*M + col];
+  
+  const int col = threadIdx.x,row = threadIdx.y;
+  const int globalRow = TS*blockIdx.y + row;
+  const int globalCol = TS*blockIdx.x + col;
+  //int blockCol = blockIdx.x, blockRow = blockIdx.y;
+  
+  __shared__ float Asub[TS][TS];
+  __shared__ float Bsub[TS][TS];
+  
+  float acc = 0.0f;
+
+  int numTiles = K/TS;
+  for(int t = 0; t < numTiles; ++t) {
+
+    Asub[row][col] = A[K * globalRow + TS * t + col];
+    Bsub[row][col] = B[M * (TS*t + row) + globalCol];
     __syncthreads();
-    for(int e = 0; e < BLOCK_SIZE; ++e) {
-      runningSum += as[row][e] * bs[e][col];
+    for(int k = 0; k < TS; ++k) {
+      acc += Asub[row][k] * Bsub[k][col];
     }
     __syncthreads();
   }
-  float* csub = C + M * BLOCK_SIZE * blockRow + BLOCK_SIZE * blockCol;
-  csub[row*M + col] = runningSum;
+  C[M * globalRow + globalCol] = acc;
 }
 
 void matrixMmultCPU(  //both row-major
@@ -91,8 +95,8 @@ double matrixMmultGPU(  //both row-major
   cudaEvent_t start_GPU, stop_GPU; cudaEventCreate(&start_GPU); cudaEventCreate(&stop_GPU);
   cudaEventRecord(start_GPU, 0);
 
-  dim3 threadDim(BLOCK_SIZE, BLOCK_SIZE);
-  dim3 blockDim(M/BLOCK_SIZE, N/BLOCK_SIZE);
+  dim3 threadDim(TS/WPT, TS);
+  dim3 blockDim(M/TS, N/TS);
   mmult<<<blockDim,threadDim>>>(gpu_a, gpu_b, gpu_c, K,M);
   cudaEventRecord(stop_GPU, 0);
   cudaEventSynchronize(start_GPU);    //等待事件完成。
@@ -122,17 +126,17 @@ int main()
   // A is a N * K matrix,
   // B is a K * M matrix
 
-  constexpr int N = 1024;
-  constexpr int K = 2048;
-  constexpr int M = 1024;
+  constexpr int N = 512;
+  constexpr int K = 1024;
+  constexpr int M = 512;
   
-  int TestTime = 1000; std::vector<float> statistics;
+  int TestTime = 1; std::vector<float> statistics;
   int randTest = std::uniform_int_distribution<>(0, TestTime) (e);
   for(int t = 0; t < TestTime; ++t) {
     YYmatrix A = generate(N*K), B = generate(K*M), C(N*M,0), D(N*M, 0);
     statistics.push_back(matrixMmultGPU(A,B,C,K));
 
-    if(t==randTest) {  //exam the result only once
+    if(t==0) {  //exam the result only once
       matrixMmultCPU(A,B,D,K);
       float l2error = 0;
       for(int i = 0; i < N; ++i) {
