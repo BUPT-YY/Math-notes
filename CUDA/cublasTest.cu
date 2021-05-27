@@ -2,7 +2,6 @@
 // "code-runner.executorMapByFileExtension": {
 //        ".cu": "cd $dir && nvcc -lcublas $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
 //    },
-
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -27,13 +26,27 @@ void generate(int size, float* vec) {
   //return vec;
 }
 
-
+void matrixMmultCPU(  //both column-major
+  float* A,  // N by K
+  float* B,  // K by M
+  float* C,  // N by M
+    int N, int K, int M) { 
+  for(int i = 0; i < N; ++i) {
+    for(int j = 0; j < M; ++j) {
+      float res = 0.0f;
+      for(int k = 0; k < K; ++k) {
+        res += A[i+ k*N] * B[k+j*K];
+      }
+      C[i+j*N] = res;
+    }
+  }
+}
 
 
 //A:N*K, B:K*M
-const int N = 1024;
-const int K = 2048;
-const int M = 1024;
+const int N = 16;
+const int K = 16;
+const int M = 16;
 
 int main() {
     float* h_a, * h_b, * h_c;
@@ -60,14 +73,14 @@ int main() {
   cudaEventRecord(start_GPU, 0);
     cublasSgemm_v2(
         handle,
-        CUBLAS_OP_T,
-        CUBLAS_OP_T,
+        CUBLAS_OP_N,
+        CUBLAS_OP_N,
         N, M, K,
         &alpha,
-        d_a, K,
-        d_b, M,
+        d_a, M,
+        d_b, K,
         &beta,
-        d_c, N
+        d_c, M
     );
   cudaEventRecord(stop_GPU, 0);
   cudaEventSynchronize(start_GPU);    //等待事件完成。
@@ -81,12 +94,30 @@ int main() {
     cudaFree(d_a);
     cudaFree(d_b);
     cudaFree(d_c);
-    free(h_a);
-    free(h_b);
-    free(h_c);
 
     std::cout << "Used time: " << usedTime*1000.0f << "μs." << std::endl;
     std::cout << "GPU average Throughput: " << 2.0*N*M*K/usedTime/1.0e6 << "GFLOPS" << std::endl; 
+
+  float* h_d = (float*)malloc(sizeof(float)*N*M); 
+
+    matrixMmultCPU(h_a,h_b,h_d,N,K,M);
+      float l2error = 0;
+      for(int i = 0; i < N*M; ++i) {
+          float temp = (h_c[i]-h_d[i]);
+          l2error += temp*temp;
+      }
+      l2error = sqrt(l2error);
+      std::string result = (l2error < 0.05) ? ", test passed." : ", test failed."; 
+      std::cout << "GPU error = " << l2error << result << std::endl;
+
+
+    free(h_a);
+    free(h_b);
+    free(h_c);
+    free(h_d);
+
+      
+
 
     return 0;
 }
