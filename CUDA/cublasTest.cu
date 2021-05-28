@@ -44,15 +44,18 @@ void matrixMmultCPU(  //both column-major
 
 
 //A:N*K, B:K*M
-const int N = 16;
-const int K = 16;
-const int M = 16;
+const int N = 1024;
+const int K = 2048;
+const int M = 1024;
 
 int main() {
     float* h_a, * h_b, * h_c;
-    h_a = (float*)malloc(sizeof(float)*N*K);
-    h_b = (float*)malloc(sizeof(float)*K*M);
-    h_c = (float*)malloc(sizeof(float)*N*M);
+
+
+    cudaMallocHost((void**)&h_a, sizeof(float)*N*K);
+    cudaMallocHost((void**)&h_b, sizeof(float)*K*M);
+    cudaMallocHost((void**)&h_c, sizeof(float)*N*M);
+
     generate(N*K, h_a);
     generate(K*M, h_b);
 
@@ -66,7 +69,7 @@ int main() {
     cudaMemcpy(d_a,h_a,sizeof(float)*N*K,cudaMemcpyHostToDevice); //数据从内存拷贝到显存
     cudaMemcpy(d_b,h_b,sizeof(float)*K*M,cudaMemcpyHostToDevice);
 
-    float alpha = 1.0f, beta = 0.0f;
+    float alpha = 2.0f, beta = 0.0f;
 
   float usedTime;
   cudaEvent_t start_GPU, stop_GPU; cudaEventCreate(&start_GPU); cudaEventCreate(&stop_GPU);
@@ -103,21 +106,17 @@ int main() {
     matrixMmultCPU(h_a,h_b,h_d,N,K,M);
       float l2error = 0;
       for(int i = 0; i < N*M; ++i) {
-          float temp = (h_c[i]-h_d[i]);
+          float temp = (h_c[i]-2.0f*h_d[i]);
           l2error += temp*temp;
       }
       l2error = sqrt(l2error);
       std::string result = (l2error < 0.05) ? ", test passed." : ", test failed."; 
       std::cout << "GPU error = " << l2error << result << std::endl;
 
-
-    free(h_a);
-    free(h_b);
-    free(h_c);
-    free(h_d);
-
-      
-
+  free(h_d);
+  cudaFreeHost((void*)h_a);
+  cudaFreeHost((void*)h_b);
+  cudaFreeHost((void*)h_c);
 
     return 0;
 }
