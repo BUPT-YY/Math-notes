@@ -32,7 +32,7 @@ layout: default
 > [RGB色彩对照表](./RGBcolors.html)
 
 > [快速创收文件夹(网上收作业)](http://xzc.cn/)
-> [金刚经](https://yang-yong.top/src/Diamond_Sutra.html)
+> [金刚经](https://bupt-yy.github.io/src/Diamond_Sutra.html)
 
 ## Coding
 
