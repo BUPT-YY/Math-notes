@@ -4,13 +4,13 @@ layout: default
 # Miscellaneous
 
 ## Our paper in April 2022
-> [Hermite Polynomials in Matlab](../notes/2022-04-B/probHermiteH.m)
-> [Get cumulants by moments](../notes/2022-04-B/calcCumulantByMoment.m)
-> [Theorem 1 result 1](../notes/2022-04-B/rayleighrayleigh.m)
-> [Theorem 1 result 2](../notes/2022-04-B/ricerice.m)
-> [Theorem 1 result 3](../notes/2022-04-B/WeibullDistr.m)
-> [Theorem 2 result 1](../notes/2022-04-B/NonIdentical.m)
-> [Theorem 3 result 1](../notes/2022-04-B/thm3rice.m)
+> [Hermite Polynomials in Matlab](../notes/2022-04-B/probHermiteH.m),
+> [Get cumulants by moments](../notes/2022-04-B/calcCumulantByMoment.m),
+> [Theorem 1 result 1](../notes/2022-04-B/rayleighrayleigh.m),
+> [Theorem 1 result 2](../notes/2022-04-B/ricerice.m),
+> [Theorem 1 result 3](../notes/2022-04-B/WeibullDistr.m),
+> [Theorem 2 result 1](../notes/2022-04-B/NonIdentical.m),
+> [Theorem 3 result 1](../notes/2022-04-B/thm3rice.m),
 > [Theorem 3 result 2](../notes/2022-04-B/thm3weibull.m)
 
 
