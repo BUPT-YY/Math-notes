@@ -3,7 +3,18 @@ layout: default
 ---
 # Miscellaneous
 
-## [我的笔记](../notes)
+## Our paper in April 2022
+> [Hermite Polynomials in Matlab](../notes/2022-04-B/probHermiteH.m)
+> [Get cumulants by moments](../notes/2022-04-B/calcCumulantByMoment.m)
+> [Theorem 1 result 1](../notes/2022-04-B/rayleighrayleigh.m)
+> [Theorem 1 result 2](../notes/2022-04-B/ricerice.m)
+> [Theorem 1 result 3](../notes/2022-04-B/WeibullDistr.m)
+> [Theorem 2 result 1](../notes/2022-04-B/NonIdentical.m)
+> [Theorem 3 result 1](../notes/2022-04-B/thm3rice.m)
+> [Theorem 3 result 2](../notes/2022-04-B/thm3weibull.m)
+
+
+## [My Notes](../notes)
 
 ## About Math
 > [线代启示录(台湾老师讲线性代数)](https://ccjou.wordpress.com/),
@@ -11,7 +22,7 @@ layout: default
 > [MathSciNet](https://mathscinet.ams.org/mathscinet), 
 > [计算数学分会](http://cscm.cc.ac.cn/)
 
-## 日常生活
+## Daily Life
 
 > [网络时间(精准对时)](https://time.is/), 
 > [天气](http://www.weather.com.cn/), [台风路径](http://typhoon.zjwater.gov.cn/default.aspx) , 
@@ -23,7 +34,7 @@ layout: default
 > [快速创收文件夹(网上收作业)](http://xzc.cn/)
 > [金刚经](https://yang-yong.top/src/Diamond_Sutra.html)
 
-## 编程
+## Coding
 
 > [世界编程语言排行榜](https://www.tiobe.com/tiobe-index/)
 
